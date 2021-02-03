@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 
 import java.io.Serializable;
 
+
 public class Company implements Serializable {
     @ColumnInfo(name = "company")
     private String name;

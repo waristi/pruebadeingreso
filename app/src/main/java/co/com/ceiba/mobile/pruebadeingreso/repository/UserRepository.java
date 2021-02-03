@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,8 +31,10 @@ public class UserRepository {
         List<User> listUserDb = userDao.getListUsers().getValue();
 
         if(listUserDb != null){
+            Log.d("DB", "Bd");
             usersLiveData.postValue(listUserDb);
         }else{
+            Log.d("API", "APi");
             getList();
         }
     }
@@ -49,14 +52,17 @@ public class UserRepository {
                 Type listType = new TypeToken<List<User>>(){}.getType();
                 List<User> listUser = new Gson().fromJson(response, listType);
                 usersLiveData.postValue(listUser);
+
+                // PERSISTE LA DATA
+                //new InsertUserAsyncTask(userDao).execute(listUser);
             }
         });
 
     }
 
-    public void insert(User user){
+    /*public void insert(User user){
         new InsertUserAsyncTask(userDao).execute(user);
-    }
+    }*/
 
     public LiveData<List<User>> getUserResponseLiveData() {
         return usersLiveData;

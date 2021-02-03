@@ -10,22 +10,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.List;
 
 import co.com.ceiba.mobile.pruebadeingreso.R;
 import co.com.ceiba.mobile.pruebadeingreso.model.User;
 import co.com.ceiba.mobile.pruebadeingreso.view.PostActivity;
 
-public class UserAdater extends RecyclerView.Adapter {
+public class UserAdapter extends RecyclerView.Adapter {
 
-    /*private Context mContext;*/
     private List<User> listUser;
-
-    /*public UserAdater(Context mContext, List<User> listUser) {
-        this.mContext = mContext;
-        this.listUser = listUser;
-    }*/
 
     private class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -62,13 +55,13 @@ public class UserAdater extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view =  LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_list_item, viewGroup, false);
-        return new UserAdater.UserViewHolder(view);
+        return new UserAdapter.UserViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         User user = (User) listUser.get(i);
-        ((UserAdater.UserViewHolder) viewHolder).bind(user, i);
+        ((UserAdapter.UserViewHolder) viewHolder).bind(user, i);
     }
 
     @Override

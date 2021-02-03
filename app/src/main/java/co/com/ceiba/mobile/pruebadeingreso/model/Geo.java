@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 
 import java.io.Serializable;
 
+
 public class Geo implements Serializable {
     @ColumnInfo(name = "lat")
     private String lat;

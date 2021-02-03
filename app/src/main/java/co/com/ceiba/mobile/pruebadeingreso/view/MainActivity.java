@@ -1,6 +1,5 @@
 package co.com.ceiba.mobile.pruebadeingreso.view;
 
-import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -8,26 +7,37 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.com.ceiba.mobile.pruebadeingreso.R;
-import co.com.ceiba.mobile.pruebadeingreso.adapter.UserAdater;
+import co.com.ceiba.mobile.pruebadeingreso.adapter.EmptyAdapter;
+import co.com.ceiba.mobile.pruebadeingreso.adapter.UserAdapter;
+import co.com.ceiba.mobile.pruebadeingreso.helpers.Progress;
 import co.com.ceiba.mobile.pruebadeingreso.model.User;
 import co.com.ceiba.mobile.pruebadeingreso.view.viewmodel.UserViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
     private UserViewModel userViewModel;
-    private UserAdater userAdater;
+    private UserAdapter userAdapter;
+    private EmptyAdapter emptyAdapter;
 
+    EditText editTextSearch;
     private RecyclerView recyclerViewSearchResults;
+
+    List<User> listUserSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("Lista de Usuarios");
+        initSeacrh();
         initList();
         initViewModel();
     }
@@ -37,22 +47,63 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    private void initSeacrh() {
+        editTextSearch = findViewById(R.id.editTextSearch);
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String search = s.toString();
+
+                if(search != ""){
+                    List<User> listTmp = new ArrayList<User>();
+                    if(listUserSearch != null){
+                        for(User user: listUserSearch){
+                            if(user.getName().toLowerCase().contains(search.toLowerCase())){
+                                listTmp.add((user));
+                            }
+                        }
+
+                        if(listTmp.isEmpty()){
+                            emptyAdapter = new EmptyAdapter();
+                            recyclerViewSearchResults.setAdapter(emptyAdapter);
+                        }
+
+                        userAdapter.setResults(listTmp);
+                    }
+                }else{
+                    userAdapter.setResults(listUserSearch);
+                }
+            }
+        });
+    }
+
     public void initList() {
         recyclerViewSearchResults = findViewById(R.id.recyclerViewSearchResults);
         recyclerViewSearchResults.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewSearchResults.setHasFixedSize(true);
 
-        userAdater = new UserAdater();
-        recyclerViewSearchResults.setAdapter(userAdater);
+        userAdapter = new UserAdapter();
+        recyclerViewSearchResults.setAdapter(userAdapter);
     }
 
     public void initViewModel() {
+        Progress.show(this, "Cargando", "Cargando lista de usuarios");
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-
         userViewModel.getListUsers().observe(this, new Observer<List<User>>() {
             @Override
             public void onChanged(@Nullable List<User> users) {
-                userAdater.setResults(users);
+                Progress.dismiss();
+                userAdapter.setResults(users);
+                listUserSearch = users;
             }
         });
     }
