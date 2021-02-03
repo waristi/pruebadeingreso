@@ -17,6 +17,9 @@ import co.com.ceiba.mobile.pruebadeingreso.model.User;
 import co.com.ceiba.mobile.pruebadeingreso.rest.Endpoints;
 import co.com.ceiba.mobile.pruebadeingreso.rest.Network;
 
+/**
+ * Repositorio de Datos Post
+ */
 public class PostRepository {
 
     private static final String URL_LIST_POST = Endpoints.URL_BASE + Endpoints.GET_POST_USER;
@@ -27,6 +30,10 @@ public class PostRepository {
         getList(userId);
     }
 
+    /**
+     * Obtiene la lista de post
+     * @param userId
+     */
     public void getList(int userId){
 
         Network.get(URL_LIST_POST + "userId=" + userId, new Network.ICallback() {

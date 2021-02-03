@@ -7,7 +7,10 @@ import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "User")
+/**
+ * Entidad User
+ */
+@Entity
 public class User implements Serializable {
 
     @PrimaryKey()

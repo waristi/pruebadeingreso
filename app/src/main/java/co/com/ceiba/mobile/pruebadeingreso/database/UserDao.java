@@ -1,6 +1,7 @@
 package co.com.ceiba.mobile.pruebadeingreso.database;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -11,25 +12,16 @@ import java.util.List;
 
 import co.com.ceiba.mobile.pruebadeingreso.model.User;
 
+/**
+ * User Dao
+ */
 @Dao
 public interface UserDao {
 
     @Insert
     void insert(User user);
 
-    @Insert
-    void insertAll(User users);
-
-    @Update
-    void update(User user);
-
-    @Delete
-    void delete(User user);
-
-    @Query("DELETE FROM User")
-    void deleteAllUsers();
-
     @Query("SELECT * FROM User")
-    LiveData<List<User>> getListUsers();
+    List<User> getListUsers();
 
 }

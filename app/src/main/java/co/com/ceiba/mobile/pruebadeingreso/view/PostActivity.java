@@ -22,6 +22,10 @@ import co.com.ceiba.mobile.pruebadeingreso.model.Post;
 import co.com.ceiba.mobile.pruebadeingreso.model.User;
 import co.com.ceiba.mobile.pruebadeingreso.view.viewmodel.PostViewModel;
 
+/**
+ * ACTIVIDAD POST
+ * Contiene la lista de post y detalle del usuario
+ */
 public class PostActivity extends AppCompatActivity {
 
     PostViewModel postViewModel;
@@ -49,6 +53,9 @@ public class PostActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    /**
+     * Setea los datos en el card
+     */
     public void initUser() {
         User user = (User) getIntent().getSerializableExtra("USER");
 
@@ -67,6 +74,9 @@ public class PostActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Inicializa la lista de Post
+     */
     public void initList() {
         recyclerViewPostsResults = findViewById(R.id.recyclerViewPostsResults);
         recyclerViewPostsResults.setLayoutManager(new LinearLayoutManager(this));
@@ -76,6 +86,10 @@ public class PostActivity extends AppCompatActivity {
         recyclerViewPostsResults.setAdapter(postAdapter);
     }
 
+    /**
+     * Inicializa el View Model
+     * @param userId
+     */
     public void initViewModel(final int userId) {
 
         Progress.show(this, "Cargando", "Cargando lista de Posts");

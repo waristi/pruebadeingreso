@@ -2,11 +2,15 @@ package co.com.ceiba.mobile.pruebadeingreso.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 
-
+/**
+ * Entidad Geo
+ */
 public class Geo implements Serializable {
+
     @ColumnInfo(name = "lat")
     private String lat;
     @ColumnInfo(name = "lng")
@@ -16,6 +20,8 @@ public class Geo implements Serializable {
         this.lat = lat;
         this.lng = lng;
     }
+
+
 
     public String getLat() {
         return lat;

@@ -21,6 +21,12 @@ import co.com.ceiba.mobile.pruebadeingreso.helpers.Progress;
 import co.com.ceiba.mobile.pruebadeingreso.model.User;
 import co.com.ceiba.mobile.pruebadeingreso.view.viewmodel.UserViewModel;
 
+/**
+ * ACTIVIDAD PRINCIPAL
+ * Contiene la lista de usuarios y opcion de busquedad
+ * Aruitectura MVVP
+ * @author Bernardo Alexander ZUluaga Aristizabal
+ */
 public class MainActivity extends AppCompatActivity {
 
     private UserViewModel userViewModel;
@@ -47,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    /**
+     * Buscador de usuarios
+     */
     private void initSeacrh() {
         editTextSearch = findViewById(R.id.editTextSearch);
         editTextSearch.addTextChangedListener(new TextWatcher() {
@@ -75,17 +84,23 @@ public class MainActivity extends AppCompatActivity {
                         if(listTmp.isEmpty()){
                             emptyAdapter = new EmptyAdapter();
                             recyclerViewSearchResults.setAdapter(emptyAdapter);
+                        }else{
+                            recyclerViewSearchResults.setAdapter(userAdapter);
                         }
 
                         userAdapter.setResults(listTmp);
                     }
                 }else{
                     userAdapter.setResults(listUserSearch);
+                    recyclerViewSearchResults.setAdapter(userAdapter);
                 }
             }
         });
     }
 
+    /**
+     * Inicializa la lista
+     */
     public void initList() {
         recyclerViewSearchResults = findViewById(R.id.recyclerViewSearchResults);
         recyclerViewSearchResults.setLayoutManager(new LinearLayoutManager(this));
@@ -95,6 +110,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewSearchResults.setAdapter(userAdapter);
     }
 
+    /**
+     * Inicializa el ViewModel
+     */
     public void initViewModel() {
         Progress.show(this, "Cargando", "Cargando lista de usuarios");
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);

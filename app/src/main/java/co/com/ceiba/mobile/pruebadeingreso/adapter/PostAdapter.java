@@ -11,6 +11,9 @@ import co.com.ceiba.mobile.pruebadeingreso.R;
 import co.com.ceiba.mobile.pruebadeingreso.model.Post;
 
 
+/**
+ * Adaptador de la lista de post
+ */
 public class PostAdapter extends RecyclerView.Adapter {
 
     private List<Post> listPost;

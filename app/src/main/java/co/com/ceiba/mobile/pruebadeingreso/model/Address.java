@@ -2,8 +2,14 @@ package co.com.ceiba.mobile.pruebadeingreso.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
+
+/**
+ * Entidad Address
+ */
 
 public class Address implements Serializable {
     @ColumnInfo(name = "street")
@@ -24,6 +30,7 @@ public class Address implements Serializable {
         this.zipcode = zipcode;
         this.geo = geo;
     }
+
 
     public String getStreet() {
         return street;

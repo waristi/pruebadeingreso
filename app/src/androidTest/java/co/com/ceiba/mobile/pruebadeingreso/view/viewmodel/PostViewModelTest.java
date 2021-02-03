@@ -1,7 +1,6 @@
 package co.com.ceiba.mobile.pruebadeingreso.view.viewmodel;
 
 import android.app.Application;
-import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -12,9 +11,9 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
-public class UserViewModelTest  {
+public class PostViewModelTest {
 
-    private UserViewModel userViewModel;
+    private PostViewModel postViewModel;
 
     @Before
     public void setUp () throws Exception {
@@ -23,12 +22,11 @@ public class UserViewModelTest  {
                         .getTargetContext()
                         .getApplicationContext();
 
-        userViewModel = new UserViewModel(application);
+        postViewModel = new PostViewModel(application, 1);
     }
 
     @Test
     public void getListUserTest () throws Exception {
-        assertNotNull(userViewModel.getListUsers());
+        assertNotNull(postViewModel.getListPost());
     }
-
 }

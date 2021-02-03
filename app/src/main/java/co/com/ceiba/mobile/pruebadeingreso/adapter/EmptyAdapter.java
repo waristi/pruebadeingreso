@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 
 import co.com.ceiba.mobile.pruebadeingreso.R;
 
+/**
+ * Adaptador cuando no hay datos en usuarios
+ */
 public class EmptyAdapter extends RecyclerView.Adapter<EmptyAdapter.UserViewHolder> {
 
     @NonNull

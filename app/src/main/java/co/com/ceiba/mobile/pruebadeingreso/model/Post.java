@@ -2,6 +2,9 @@ package co.com.ceiba.mobile.pruebadeingreso.model;
 
 import java.io.Serializable;
 
+/**
+ * Entidad Post
+ */
 public class Post implements Serializable {
 
     private int userId;

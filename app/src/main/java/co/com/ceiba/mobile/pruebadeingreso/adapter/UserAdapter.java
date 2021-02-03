@@ -16,6 +16,9 @@ import co.com.ceiba.mobile.pruebadeingreso.R;
 import co.com.ceiba.mobile.pruebadeingreso.model.User;
 import co.com.ceiba.mobile.pruebadeingreso.view.PostActivity;
 
+/**
+ * Adaptador de la lista de usuarios
+ */
 public class UserAdapter extends RecyclerView.Adapter {
 
     private List<User> listUser;

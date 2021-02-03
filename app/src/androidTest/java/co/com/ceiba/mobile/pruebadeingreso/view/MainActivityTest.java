@@ -55,9 +55,10 @@ public class MainActivityTest {
         };
     }
 
+    // TEMPO PARA CARGAR LA DATA
     @Before
     public void setUp() throws Exception {
-        Thread.sleep(4000);
+        Thread.sleep(1000);
     }
 
     @Test

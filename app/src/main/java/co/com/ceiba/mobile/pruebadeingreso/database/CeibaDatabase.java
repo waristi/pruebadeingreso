@@ -8,9 +8,16 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import co.com.ceiba.mobile.pruebadeingreso.model.Address;
+import co.com.ceiba.mobile.pruebadeingreso.model.Company;
+import co.com.ceiba.mobile.pruebadeingreso.model.Geo;
 import co.com.ceiba.mobile.pruebadeingreso.model.User;
 
-@Database(entities = {User.class}, version = 1)
+/**
+ * RoomDatabase
+ * @author Bernardo Alexander Zuluaga Aristizabal
+ */
+@Database(entities = {User.class}, version = 2)
 public abstract class CeibaDatabase extends RoomDatabase {
 
     private static CeibaDatabase instance;
