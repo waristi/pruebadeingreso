@@ -2,7 +2,9 @@ package co.com.ceiba.mobile.pruebadeingreso.model;
 
 import android.arch.persistence.room.ColumnInfo;
 
-public class Company {
+import java.io.Serializable;
+
+public class Company implements Serializable {
     @ColumnInfo(name = "company")
     private String name;
     @ColumnInfo(name = "catchPhrase")

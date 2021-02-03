@@ -28,30 +28,33 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initList();
+        initViewModel();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    public void initList() {
         recyclerViewSearchResults = findViewById(R.id.recyclerViewSearchResults);
         recyclerViewSearchResults.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewSearchResults.setHasFixedSize(true);
 
         userAdater = new UserAdater();
         recyclerViewSearchResults.setAdapter(userAdater);
+    }
 
+    public void initViewModel() {
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+
         userViewModel.getListUsers().observe(this, new Observer<List<User>>() {
             @Override
             public void onChanged(@Nullable List<User> users) {
-                Toast.makeText(MainActivity.this, "Change User", Toast.LENGTH_SHORT).show();
                 userAdater.setResults(users);
             }
         });
-
-
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
     }
 
 
