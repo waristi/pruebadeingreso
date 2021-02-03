@@ -35,6 +35,7 @@ public class UserAdater extends RecyclerView.Adapter {
             tvName = (TextView) itemView.findViewById(R.id.name);
             tvPhone = (TextView) itemView.findViewById(R.id.phone);
             tvEmail = (TextView) itemView.findViewById(R.id.email);
+            btnPost = (Button) itemView.findViewById(R.id.btn_view_post);
             btnPost.setOnClickListener(this);
         }
 
@@ -66,7 +67,7 @@ public class UserAdater extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return listUser.size();
+        return (listUser != null ? listUser.size() : 0);
     }
 
     public void setResults(List<User> listUser) {

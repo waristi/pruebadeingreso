@@ -21,33 +21,37 @@ public class UserRepository {
 
     private static final String URL_LIST_USER = Endpoints.URL_BASE + Endpoints.GET_USERS;
 
-    //private MutableLiveData<List<User>> usersLiveData;
     private UserDao userDao;
-    private MutableLiveData<List<User>> usersLiveData;
+    private MutableLiveData<List<User>> usersLiveData = new MutableLiveData<>();
 
     public UserRepository(Application application) {
         CeibaDatabase database = CeibaDatabase.getInstance(application);
         userDao = database.userDao();
-        //usersLiveData = userDao.getListUsers();
+        List<User> listUserDb = userDao.getListUsers().getValue();
+
+        if(listUserDb != null){
+            usersLiveData.postValue(listUserDb);
+        }else{
+            getList();
+        }
     }
 
     public void getList(){
-        if(usersLiveData == null){
-            Network.get(URL_LIST_USER, new Network.ICallback() {
-                @Override
-                public void onFail(String code, String error) {
-                    usersLiveData.postValue(null);
-                }
 
-                @Override
-                public void onSuccess(String response) {
-                    Type listType = new TypeToken<List<User>>(){}.getType();
-                    List<User> listUser = new Gson().fromJson(response, listType);
-                    usersLiveData.postValue(listUser);
-                    //usersLiveData;
-                }
-            });
-        }
+        Network.get(URL_LIST_USER, new Network.ICallback() {
+            @Override
+            public void onFail(String code, String error) {
+                usersLiveData.postValue(null);
+            }
+
+            @Override
+            public void onSuccess(String response) {
+                Type listType = new TypeToken<List<User>>(){}.getType();
+                List<User> listUser = new Gson().fromJson(response, listType);
+                usersLiveData.postValue(listUser);
+            }
+        });
+
     }
 
     public void insert(User user){

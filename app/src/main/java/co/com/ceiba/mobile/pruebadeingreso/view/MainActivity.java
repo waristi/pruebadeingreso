@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
@@ -28,17 +29,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        recyclerViewSearchResults = findViewById(R.id.recyclerViewSearchResults);
+        recyclerViewSearchResults.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewSearchResults.setHasFixedSize(true);
+
         userAdater = new UserAdater();
+        recyclerViewSearchResults.setAdapter(userAdater);
 
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         userViewModel.getListUsers().observe(this, new Observer<List<User>>() {
             @Override
             public void onChanged(@Nullable List<User> users) {
                 Toast.makeText(MainActivity.this, "Change User", Toast.LENGTH_SHORT).show();
+                userAdater.setResults(users);
             }
         });
 
-        recyclerViewSearchResults = findViewById(R.id.recyclerViewSearchResults);
+
 
     }
 
